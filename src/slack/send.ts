@@ -33,6 +33,9 @@ type SlackSendOpts = {
   mediaUrl?: string;
   client?: WebClient;
   threadTs?: string;
+  username?: string;
+  iconUrl?: string;
+  iconEmoji?: string;
 };
 
 export type SlackSendResult = {
@@ -186,6 +189,9 @@ export async function sendMessageSlack(
         channel: channelId,
         text: chunk,
         thread_ts: opts.threadTs,
+        ...(opts.username && { username: opts.username }),
+        ...(opts.iconUrl && { icon_url: opts.iconUrl }),
+        ...(opts.iconEmoji && { icon_emoji: opts.iconEmoji }),
       });
       lastMessageId = response.ts ?? lastMessageId;
     }
@@ -195,6 +201,9 @@ export async function sendMessageSlack(
         channel: channelId,
         text: chunk,
         thread_ts: opts.threadTs,
+        ...(opts.username && { username: opts.username }),
+        ...(opts.iconUrl && { icon_url: opts.iconUrl }),
+        ...(opts.iconEmoji && { icon_emoji: opts.iconEmoji }),
       });
       lastMessageId = response.ts ?? lastMessageId;
     }
